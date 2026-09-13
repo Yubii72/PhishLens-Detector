@@ -1,0 +1,7 @@
+import type { HistoryEmail } from "../lib/history";
+
+export function Comparison({ selected }: { selected: HistoryEmail[] }) {
+  if (selected.length !== 2) return null;
+  const [first, second] = selected;
+  return <section className="results-section" id="comparison-results"><div className="results-head"><h2>Side-by-side comparison</h2><span>Two scans selected</span></div><div className="results-grid"><div className="panel score-card"><div className="score-top"><div><p className="panel-kicker">Selected scan · A</p><div className="score-value">{first.score}<span className="score-max">/100</span></div></div><span className={`category ${first.tone}`}>{first.category}</span></div><p className="score-copy"><strong>{first.sender}</strong><br />{first.address}<br />{first.time}</p><div className="meter"><span style={{ width: `${first.score}%` }} /></div></div><div className="panel score-card"><div className="score-top"><div><p className="panel-kicker">Selected scan · B</p><div className="score-value">{second.score}<span className="score-max">/100</span></div></div><span className={`category ${second.tone}`}>{second.category}</span></div><p className="score-copy"><strong>{second.sender}</strong><br />{second.address}<br />{second.time}</p><div className="meter"><span style={{ width: `${second.score}%` }} /></div></div></div></section>;
+}
