@@ -2,9 +2,9 @@
 
 ![PhishLens logo](client/public/logo.png)
 
-A calm, explainable first pass between "looks odd" and "clicked it." Paste raw email source (or upload a `.eml`) and get a risk score, a breakdown of the signals found, and an annotated view of the suspicious parts — before you ever click a link.
+Paste raw email source (or upload a `.eml`) and get a risk score, a breakdown of the signals found, and an annotated view of the suspicious parts before you ever click a link.
 
-Built with React + TypeScript and delivered as a clean, dark navy/teal/amber workspace.
+Built with React + TypeScript.
 
 ## Features
 
