@@ -146,6 +146,7 @@ button:focus-visible { outline: none; box-shadow: none; }
 .results-head h2 { margin: 0; color: #ecf5f7; font-size: 15px; letter-spacing: -.02em; }
 .results-head span { color: #6b879c; font-size: 11px; }
 .results-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 24px; }
+#comparison-results .results-grid { grid-template-columns: 1fr 1fr; }
 .score-card { position: relative; overflow: hidden; padding: 23px; }
 .score-card::after { content: none; }
 .score-top { display: flex; justify-content: space-between; align-items: flex-start; }
