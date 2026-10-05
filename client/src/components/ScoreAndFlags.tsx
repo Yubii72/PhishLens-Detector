@@ -46,9 +46,20 @@ export function ScoreAndFlags({ analysis }: { analysis: Analysis }) {
             <span>{analysis.date || "unknown"}</span>
           </div>
           <p className="email-copy" style={{ whiteSpace: "pre-wrap" }}>
-            {analysis.body.split(/(https?:\/\/[^\s)]+)/g).map((chunk, i) => {
-              if (analysis.suspiciousLinks.includes(chunk)) {
-                return <span className="highlight-red" key={i}>{chunk}</span>;
+            {analysis.body.split(/(https?:\/\/[^\s)]+|\b(urgent|act now|verify your account|verify your identity|24 hours|immediately|suspended|permanently suspended|confirm your identity|limited time|click here|unusual activity|account will be closed|final notice|confirm your payment|sign in to confirm|unauthorized access)\b)/gi).map((chunk, i) => {
+              if (!chunk) return null;
+              // Check if it's a URL
+              if (/^https?:\/\//i.test(chunk)) {
+                if (analysis.suspiciousLinks.includes(chunk)) {
+                  return <span className="highlight-red" key={i}>{chunk}</span>;
+                }
+                return chunk;
+              }
+              // Check if it's an urgency phrase
+              const lower = chunk.toLowerCase();
+              const urgencyPhrases = ["urgent", "act now", "verify your account", "verify your identity", "24 hours", "immediately", "suspended", "permanently suspended", "confirm your identity", "limited time", "click here", "unusual activity", "account will be closed", "final notice", "confirm your payment", "sign in to confirm", "unauthorized access"];
+              if (urgencyPhrases.some(p => lower === p)) {
+                return <span className="highlight-amber" key={i}>{chunk}</span>;
               }
               return chunk;
             })}
