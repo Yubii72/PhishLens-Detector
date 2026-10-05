@@ -46,17 +46,17 @@ export function ScoreAndFlags({ analysis }: { analysis: Analysis }) {
             <span>{analysis.date || "unknown"}</span>
           </div>
           <p className="email-copy" style={{ whiteSpace: "pre-wrap" }}>
-            {analysis.body.split(/(https?:\/\/[^\s)]+|\bunusual activity\b|\bsuspended\b|\bimmediately\b|\b24 hours\b|\bverify your information\b|\bverify your account\b|\bact now\b|\bur urgent\b|\bconfirm your payment\b|\bclick here\b|\blimited time\b)/gi).map((chunk, i) => {
+            {analysis.body.split(/(https?:\/\/[^\s)]+|\bunusual activity\b|\bsuspended\b|\bimmediately\b|\b24 hours\b|\bverify your information\b|\bverify your account\b|\bact now\b|\bur urgent\b|\bconfirm your payment\b|\bclick here\b|\blimited time\b|\baccount will be closed\b|\bpermanently suspended\b|\bfinal notice\b)/gi).map((chunk, i) => {
               if (!chunk) return null;
               if (/^https?:\/\//i.test(chunk)) {
-                if (analysis.suspiciousLinks.includes(chunk)) {
+                if (analysis.suspiciousLinks.includes(chunk.trim())) {
                   return <span className="highlight-red" key={i}>{chunk}</span>;
                 }
-                // Also highlight lookalike URLs in red (critical-like visual cue)
-                return <span className="highlight-red" key={i}>{chunk}</span>;
+                return chunk;
               }
               const lower = chunk.toLowerCase();
-              if (["unusual activity", "suspended", "immediately", "24 hours", "verify your information", "verify your account", "act now", "urgent", "confirm your payment", "click here", "limited time"].includes(lower)) {
+              const amber = ["unusual activity", "suspended", "permanently suspended", "immediately", "24 hours", "verify your information", "verify your account", "act now", "urgent", "confirm your payment", "click here", "limited time", "account will be closed", "final notice"];
+              if (amber.includes(lower)) {
                 return <span className="highlight-amber" key={i}>{chunk}</span>;
               }
               return chunk;
